@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const mongoURL = "mongodb://127.0.0.1:27017/restaurantsApp";
+require("dotenv").config();
+// const mongoURL = "mongodb://127.0.0.1:27017/restaurantsApp";
+const mongoURL = process.env.MONGO_URL;
 mongoose.connect(mongoURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
