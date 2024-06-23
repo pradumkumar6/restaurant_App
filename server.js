@@ -2,14 +2,25 @@ const express = require("express");
 const app = express();
 const db = require("./db");
 require("dotenv").config();
-const Person = require("./models/person");
 const Menu = require("./models/menu");
+const passport = require("./auth");
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json()); // req.body
 
+// Middleware function
+const logRequest = (req, res, next) => {
+  console.log(
+    `${new Date().toLocaleString()} Request Made to: ${req.originalUrl}`
+  );
+  next(); // move on next phase
+};
+app.use(logRequest);
+// Initialize the passport
+app.use(passport.initialize());
+const localAuthMiddleware = passport.authenticate("local", { session: false });
 app.get("/", function (req, res) {
-  res.send("Hii this is the root page.");
+  res.send("Welcome to our Hotel❤️🙌.");
 });
 
 // // POST route to add the menuItem
